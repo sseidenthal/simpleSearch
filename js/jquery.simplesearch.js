@@ -20,6 +20,12 @@
 
                 init : function(obj, options) {
 
+                    var container = $('<div></div>').attr({'class':'input-append'});
+                    container.append($('#'+obj.attr('id')).clone().attr({'id':obj.attr('id')+'_display','name':''}).val(options.visibleValue));
+                    container.append($('<button></button>').attr({'type':'button','class':'btn','id':'clean_'+obj.attr('id')}).append($('<i></i>').attr({'class':'icon-remove'})));
+                    container.append($('<button></button>').attr({'type':'button','class':'btn','id':'search_'+obj.attr('id')}).text('Search'));
+                    container.insertBefore($('#'+obj.attr('id')));
+
                     $('#clean_'+obj.attr('id')).on('click', function(e) {
                         $('#'+obj.attr('id')+'_display').val('');
                         $('#'+obj.attr('id')+'_display').focus();
@@ -30,8 +36,6 @@
                             methods.query(obj, options, $('#'+obj.attr('id')+'_display').val());
                         }
                     });
-
-                    $('#'+obj.attr('id')).clone().attr({'id':obj.attr('id')+'_display','name':''}).val(options.visibleValue).insertBefore($('#'+obj.attr('id')));
 
                     $('#'+obj.attr('id')).hide();
                 },
